@@ -57,6 +57,7 @@ namespace ConsoleRPG.GameComponents
                     if (player.TryRunAway(enemy.Speed))
                     {
                         Console.WriteLine($"{player.name} ran away !");
+                        Console.ReadLine();
                         goto End;
                     }
                     else Console.WriteLine($"{player.name} failed to run away !");
