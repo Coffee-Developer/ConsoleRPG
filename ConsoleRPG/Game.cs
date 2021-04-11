@@ -1,6 +1,6 @@
-﻿using System;
+﻿using ConsoleRPG.GameComponents;
 using ConsoleRPG.Mobs;
-using ConsoleRPG.GameComponents;
+using System;
 
 namespace ConsoleRPG
 {

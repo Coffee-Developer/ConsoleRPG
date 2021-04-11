@@ -1,6 +1,6 @@
-﻿using System;
+﻿using ConsoleRPG.GameComponents;
+using System;
 using System.Collections.Generic;
-using ConsoleRPG.GameComponents;
 
 namespace ConsoleRPG.Mobs
 {
@@ -115,7 +115,7 @@ namespace ConsoleRPG.Mobs
         public void LightAttack(LightAttacks lightAttack, Enemy enemy)
         {
             Console.Beep();
-            Console.WriteLine($"\n{name} uses {lightAttack.ToString().Replace("_", " ")}");
+            Console.WriteLine($"\n{name} uses {lightAttack.ToString().Replace("_", " ")} !");
             Attack(enemy, AttackDamage);
             Console.ReadLine();
         }
