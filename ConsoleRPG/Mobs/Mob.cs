@@ -4,7 +4,7 @@ namespace ConsoleRPG.Mobs
 {
     internal abstract class Mob<T>
     {
-        public int level = 1, coins = 0, strengthPoints, resistencePoints, speedPoints, difficultyFactor;
+        public int level, coins = 0, strengthPoints, resistencePoints, speedPoints, difficultyFactor;
         public float life;
         public string name;
         protected float xp;

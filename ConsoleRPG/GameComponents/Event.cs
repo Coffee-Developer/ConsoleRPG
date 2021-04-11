@@ -60,6 +60,7 @@ namespace ConsoleRPG.GameComponents
                         goto End;
                     }
                     else Console.WriteLine($"{player.name} failed to run away !");
+                    Console.ReadLine();
                     break;
 
                 case "4":

@@ -49,6 +49,7 @@ namespace ConsoleRPG.GameComponents
             string description = "";
             int effectLife = 0, effectXp = 0, effectStrength = 0, effectResistence = 0, effectMana = 0, effectSpeed = 0, price = 0;
 
+            // TODO
             switch (item)
             {
                 case Items.Xp_potion:

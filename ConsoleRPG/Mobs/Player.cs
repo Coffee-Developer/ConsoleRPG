@@ -50,6 +50,7 @@ namespace ConsoleRPG.Mobs
         {
             difficultyFactor = GameManager.DifficultyFactor;
             mana = manaPoints * 10;
+            level = 1;
             this.manaPoints += manaPoints;
             this.playerClass = playerClass;
             this.heavyAttack = heavyAttack;
@@ -77,8 +78,8 @@ namespace ConsoleRPG.Mobs
                     {
                         Console.WriteLine("Invalid value !");
                         Console.ReadLine();
-                        goto Start;
                     }
+                    goto Start;
                 }
             }
             else
@@ -114,7 +115,6 @@ namespace ConsoleRPG.Mobs
 
         public void LightAttack(LightAttacks lightAttack, Enemy enemy)
         {
-            Console.Beep();
             Console.WriteLine($"\n{name} uses {lightAttack.ToString().Replace("_", " ")} !");
             Attack(enemy, AttackDamage);
             Console.ReadLine();
@@ -124,7 +124,6 @@ namespace ConsoleRPG.Mobs
         {
             mana -= 10;
             Attack(enemy, AttackDamage + 10);
-            Console.Beep();
             Console.WriteLine($"\n{name} uses {heavyAttack.ToString().Replace("_", " ")} !");
             Console.ReadLine();
         }
