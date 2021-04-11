@@ -85,7 +85,7 @@ namespace ConsoleRPG.GameComponents
                 enemy.AI(player);
                 if (player.life <= 0)
                 {
-                    GameManager.GameOver(player);
+                    GameManager.GameOver(player, enemy.name);
                     goto End;
                 }
                 else goto Start;

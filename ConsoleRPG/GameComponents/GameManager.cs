@@ -107,11 +107,11 @@ namespace ConsoleRPG.GameComponents
             Console.ReadLine();
         }
 
-        public static void GameOver(Player player)
+        public static void GameOver(Player player, string enemyName)
         {
             playerIsDead = true;
             savedPlayers.Remove(player);
-            Console.WriteLine($"{player.name} IS DEAD !\n");
+            Console.WriteLine($"{player.name} was killed by {enemyName} !\n");
             Console.ReadLine();
         }
 

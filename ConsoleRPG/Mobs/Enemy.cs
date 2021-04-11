@@ -15,8 +15,8 @@
         public override float Xp { get => xp; set => xp = value; }
 
         // I know this isn't an AI.
-        public void AI(Player player) 
-        { 
+        public void AI(Player player)
+        {
             Attack(player, GameComponents.GameManager.rand.Next(AttackDamage, AttackDamage + 10));
             System.Console.WriteLine($"{name} attacks {player.name}");
         }

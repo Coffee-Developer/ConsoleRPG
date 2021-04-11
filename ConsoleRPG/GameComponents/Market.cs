@@ -62,14 +62,13 @@ namespace ConsoleRPG.GameComponents
                             player.inventory.Add(selectedItem);
                             itemsOnSale.Remove(selectedItem);
                         }
-                        goto Start;
                     }
                     catch (Exception)
                     {
                         Console.WriteLine("Invalid value !");
                         Console.ReadLine();
-                        goto Start;
                     }
+                    goto Start;
                 }
             }
             else
@@ -97,14 +96,13 @@ namespace ConsoleRPG.GameComponents
                         player.coins += selectedItem.price;
                         itemsOnSale.Add(selectedItem);
                         player.inventory.Remove(selectedItem);
-                        goto Start;
                     }
                     catch (Exception)
                     {
                         Console.WriteLine("Invalid value !");
                         Console.ReadLine();
-                        goto Start;
                     }
+                    goto Start;
                 }
             }
             else
