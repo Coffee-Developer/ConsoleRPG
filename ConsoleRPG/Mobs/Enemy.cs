@@ -5,9 +5,8 @@
 
     internal class Enemy : Mob<Enemy>
     {
-        public Enemy(float xp, int coins, string name, int level, int strengthPoints, int resistencePoints, int speedPoints) : base(name, strengthPoints, resistencePoints, speedPoints)
+        public Enemy(float xp, int coins, string name, int level, int strengthPoints, int resistencePoints, int speedPoints) : base(level, name, strengthPoints, resistencePoints, speedPoints)
         {
-            this.level = level;
             this.coins = coins;
             this.xp = xp;
         }

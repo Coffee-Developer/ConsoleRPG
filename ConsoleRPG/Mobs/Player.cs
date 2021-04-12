@@ -46,11 +46,10 @@ namespace ConsoleRPG.Mobs
 
         #endregion Properties field
 
-        public Player(Classes playerClass, LightAttacks lightAttack, HeavyAttacks heavyAttack, string name, int strengthPoints, int resistencePoints, int speedPoints, int manaPoints) : base(name, strengthPoints, resistencePoints, speedPoints)
+        public Player(Classes playerClass, LightAttacks lightAttack, HeavyAttacks heavyAttack, int level, string name, int strengthPoints, int resistencePoints, int speedPoints, int manaPoints) : base(level, name, strengthPoints, resistencePoints, speedPoints)
         {
             difficultyFactor = GameManager.DifficultyFactor;
             mana = manaPoints * 10;
-            level = 1;
             this.manaPoints += manaPoints;
             this.playerClass = playerClass;
             this.heavyAttack = heavyAttack;
@@ -122,8 +121,8 @@ namespace ConsoleRPG.Mobs
 
         public void HeavyAttack(HeavyAttacks heavyAttack, Enemy enemy)
         {
-            mana -= 10;
-            Attack(enemy, AttackDamage + 10);
+            mana -= 5 * difficultyFactor;
+            Attack(enemy, AttackDamage + 5);
             Console.WriteLine($"\n{name} uses {heavyAttack.ToString().Replace("_", " ")} !");
             Console.ReadLine();
         }

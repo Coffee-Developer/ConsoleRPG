@@ -2,7 +2,7 @@
 {
     internal abstract class Mob<T>
     {
-        public int level = 1, coins = 0, strengthPoints, resistencePoints, speedPoints, difficultyFactor;
+        public int level, coins = 0, strengthPoints, resistencePoints, speedPoints, difficultyFactor;
         public float life;
         public string name;
         protected float xp;
@@ -14,12 +14,13 @@
         public int XpNextLevel => 50 * level * difficultyFactor;
         public abstract float Xp { get; set; }
 
-        public Mob(string name, int strengthPoints, int resistencePoints, int speedPoints)
+        public Mob(int level, string name, int strengthPoints, int resistencePoints, int speedPoints)
         {
             this.strengthPoints += strengthPoints;
             this.resistencePoints += resistencePoints;
             this.speedPoints += speedPoints;
             this.name = name;
+            this.level = level;
             life = NewLife;
         }
 

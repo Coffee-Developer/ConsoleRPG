@@ -9,16 +9,40 @@ namespace ConsoleRPG.GameComponents
 
     internal static class GameManager
     {
+        #region GameManager properties
+
+        /// <summary>
+        /// Checks if the player is dead or not.
+        /// </summary>
         public static bool playerIsDead = false;
 
-        public static Random rand = new Random();
+        /// <summary>
+        /// A normal variable that stores a Random class
+        /// </summary>
+        public static Random rand = new();
 
-        public static List<Player> savedPlayers = new List<Player>();
+        /// <summary>
+        /// A list of all saved players.
+        /// </summary>
+        public static List<Player> savedPlayers = new();
 
+        /// <summary>
+        /// Stores the game difficulty (standard difficulty = medium).
+        /// </summary>
         public static Difficulties difficulty = Difficulties.Medium;
 
+        /// <summary>
+        /// Stores the game difficulty factor based on game difficulty.
+        /// </summary>
         public static int DifficultyFactor => (int)difficulty;
 
+        #endregion
+
+        #region GameManager methods
+
+        /// <summary>
+        /// Enables the difficulty change.
+        /// </summary>
         public static void ChangeDifficulty()
         {
         Start:
@@ -33,6 +57,9 @@ namespace ConsoleRPG.GameComponents
             }
         }
 
+        /// <summary>
+        /// Enables the game color change.
+        /// </summary>
         public static void ChangeColor()
         {
         Start:
@@ -48,6 +75,9 @@ namespace ConsoleRPG.GameComponents
             }
         }
 
+        /// <summary>
+        /// Return a random enemy.
+        /// </summary>
         public static Enemy RandomEnemy(Player player)
         {
             Enemys enemy = (Enemys)rand.Next(6);
@@ -99,6 +129,9 @@ namespace ConsoleRPG.GameComponents
             return new Enemy(xp, coins, enemy.ToString(), player.level, strengthPoints, resistencePoints, speedPoints);
         }
 
+        /// <summary>
+        /// Displays the enemy killed action, adds xp to the player and coins.
+        /// </summary>
         public static void EnemyKilled(Player player, Enemy enemy)
         {
             player.Xp += enemy.Xp;
@@ -107,6 +140,9 @@ namespace ConsoleRPG.GameComponents
             Console.ReadLine();
         }
 
+        /// <summary>
+        /// Displays the game over action, sets playerIsDead to true and removes the player from saved players list.
+        /// </summary>
         public static void GameOver(Player player, string enemyName)
         {
             playerIsDead = true;
@@ -115,8 +151,10 @@ namespace ConsoleRPG.GameComponents
             Console.ReadLine();
         }
 
-        #region Player creation
-
+        /// <summary>
+        /// Enables the player creation menu
+        /// </summary>
+        /// <returns>Player</returns>
         public static Player CreatePlayer()
         {
         Start:
@@ -130,7 +168,7 @@ namespace ConsoleRPG.GameComponents
             switch (Console.ReadLine())
             {
                 case "1":
-                    var player = new Player(playerClass, lightAttack, heavyAttack, playerName, strengthPoints, resistencePoints, speedPoints, manaPoints);
+                    var player = new Player(playerClass, lightAttack, heavyAttack, 1, playerName, strengthPoints, resistencePoints, speedPoints, manaPoints);
                     savedPlayers.Add(player);
                     return player;
 
@@ -228,6 +266,6 @@ namespace ConsoleRPG.GameComponents
             return (lightAttack, heavyAttack, strengthPoints, resistencePoints, speedPoints, manaPoints);
         }
 
-        #endregion Player creation
+        #endregion
     }
 }
