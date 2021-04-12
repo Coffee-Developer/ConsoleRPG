@@ -19,6 +19,7 @@
         {
             Attack(player, GameComponents.GameManager.rand.Next(AttackDamage, AttackDamage + 10));
             System.Console.WriteLine($"{name} attacks {player.name}");
+            System.Console.ReadLine();
         }
     }
 }

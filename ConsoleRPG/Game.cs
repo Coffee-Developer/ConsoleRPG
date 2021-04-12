@@ -49,7 +49,7 @@ namespace ConsoleRPG
             if (GameManager.savedPlayers.Count != 0)
             {
                 Console.WriteLine("Select a save to continue:\n");
-                GameManager.savedPlayers.ForEach(player => Console.WriteLine($"{GameManager.savedPlayers.IndexOf(player) + 1}. {player.name}\n"));
+                for (int i = 0; i < GameManager.savedPlayers.Count; i++) Console.WriteLine($"{i + 1}. {GameManager.savedPlayers[i].name}\n");
                 string option = Console.ReadLine();
                 if (!option.Equals("-1"))
                 {
