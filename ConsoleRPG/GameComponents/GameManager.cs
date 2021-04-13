@@ -9,7 +9,7 @@ namespace ConsoleRPG.GameComponents
 
     internal static class GameManager
     {
-        #region GameManager properties
+        #region Properties
 
         /// <summary>
         /// Checks if the player is dead or not.
@@ -36,9 +36,9 @@ namespace ConsoleRPG.GameComponents
         /// </summary>
         public static int DifficultyFactor => (int)difficulty;
 
-        #endregion
+        #endregion Properties 
 
-        #region GameManager methods
+        #region Methods
 
         /// <summary>
         /// Enables the difficulty change.
@@ -86,41 +86,40 @@ namespace ConsoleRPG.GameComponents
             switch (enemy)
             {
                 case Enemys.Zombie:
-                    strengthPoints = rand.Next(1 * player.difficultyFactor, player.strengthPoints + 1);
-                    resistencePoints = rand.Next(1 * player.difficultyFactor, player.resistencePoints + 1);
+                    strengthPoints = CalcPoints(player.difficultyFactor, player.strengthPoints);
+                    resistencePoints = CalcPoints(player.difficultyFactor, player.resistencePoints);
                     coins = 10;
                     xp = 20;
                     break;
 
                 case Enemys.Skeleton:
-                    strengthPoints = rand.Next(1 * player.difficultyFactor, player.strengthPoints + 1);
-                    speedPoints = rand.Next(1 * player.difficultyFactor, player.speedPoints + 1);
+                    strengthPoints = CalcPoints(player.difficultyFactor, player.strengthPoints);
+                    speedPoints = CalcPoints(player.difficultyFactor, player.speedPoints);
                     coins = 10;
                     xp = 20;
                     break;
 
                 case Enemys.Slime:
-                    speedPoints = rand.Next(1 * player.difficultyFactor, player.speedPoints + 1);
+                    speedPoints = CalcPoints(player.difficultyFactor, player.speedPoints);
                     coins = 5;
                     xp = 10;
                     break;
 
                 case Enemys.Dragon:
-                    strengthPoints = rand.Next(1 * player.difficultyFactor, player.strengthPoints + 1);
-                    resistencePoints = rand.Next(1 * player.difficultyFactor, player.resistencePoints + 1);
-                    speedPoints = rand.Next(1 * player.difficultyFactor, player.speedPoints + 1);
-                    coins = 15;
+                    strengthPoints = CalcPoints(player.difficultyFactor, player.strengthPoints);
+                    resistencePoints = CalcPoints(player.difficultyFactor, player.resistencePoints);
+                    speedPoints = CalcPoints(player.difficultyFactor, player.speedPoints);
                     xp = 25;
                     break;
 
                 case Enemys.Burned:
-                    strengthPoints = rand.Next(1 * player.difficultyFactor, player.strengthPoints + 1);
+                    strengthPoints = CalcPoints(player.difficultyFactor, player.strengthPoints);
                     coins = 5;
                     xp = 15;
                     break;
 
                 case Enemys.Iceman:
-                    resistencePoints = rand.Next(1 * player.difficultyFactor, player.resistencePoints + 1);
+                    resistencePoints = CalcPoints(player.difficultyFactor, player.resistencePoints);
                     coins = 10;
                     xp = 15;
                     break;
@@ -266,6 +265,8 @@ namespace ConsoleRPG.GameComponents
             return (lightAttack, heavyAttack, strengthPoints, resistencePoints, speedPoints, manaPoints);
         }
 
-        #endregion
+        private static int CalcPoints(int difficultyFactor, int points) => rand.Next(difficultyFactor, points + 1 * difficultyFactor);
+
+        #endregion Methods
     }
 }

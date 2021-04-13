@@ -18,8 +18,9 @@ namespace ConsoleRPG.Mobs
         #region Properties field
 
         private bool levelUp = false;
+        public int XpNextLevel => 50 * level * difficultyFactor;
         public int skillPoints = 0, manaPoints, mana;
-        public List<Item> inventory = new List<Item>();
+        public List<Item> inventory = new();
         public Classes playerClass;
         public LightAttacks lightAttack;
         public HeavyAttacks heavyAttack;

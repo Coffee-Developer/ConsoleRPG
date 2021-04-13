@@ -5,13 +5,12 @@
         public int level, coins = 0, strengthPoints, resistencePoints, speedPoints, difficultyFactor;
         public float life;
         public string name;
-        protected float xp;
         protected float NewLife => level * 30 + Resistence;
         public int AttackDamage => Strength + 10 * level;
         public int Resistence => resistencePoints * 5;
         public int Speed => speedPoints * 10;
         public int Strength => strengthPoints * 10;
-        public int XpNextLevel => 50 * level * difficultyFactor;
+        protected float xp;
         public abstract float Xp { get; set; }
 
         public Mob(int level, string name, int strengthPoints, int resistencePoints, int speedPoints)
