@@ -13,7 +13,7 @@ namespace ConsoleRPG.Mobs
     internal enum HeavyAttacks
     { Blade_storm, Strong_wind, Long_bow }
 
-    internal class Player : Mob<Player>
+    internal class Player : Mob
     {
         #region Properties field
 
@@ -128,11 +128,7 @@ namespace ConsoleRPG.Mobs
             Console.ReadLine();
         }
 
-        public bool TryRunAway(int EnemySpeed)
-        {
-            if (EnemySpeed >= Speed) return false;
-            else return true;
-        }
+        public bool TryRunAway(int EnemySpeed) => EnemySpeed >= Speed;
 
         private void Upgrade()
         {

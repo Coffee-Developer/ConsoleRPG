@@ -1,6 +1,6 @@
 ﻿namespace ConsoleRPG.Mobs
 {
-    internal abstract class Mob<T>
+    internal abstract class Mob
     {
         public int level, coins = 0, strengthPoints, resistencePoints, speedPoints, difficultyFactor;
         public float life;
@@ -23,6 +23,6 @@
             life = NewLife;
         }
 
-        protected void Attack<D>(D deffenser, int AttackDamage) where D : Mob<D> => deffenser.life -= GameComponents.GameManager.rand.Next(AttackDamage, AttackDamage + 5) - deffenser.Resistence;
+        protected void Attack<T>(T deffenser, int AttackDamage) where T : Mob => deffenser.life -= GameComponents.GameManager.rand.Next(AttackDamage, AttackDamage + 5) - deffenser.Resistence;
     }
 }
