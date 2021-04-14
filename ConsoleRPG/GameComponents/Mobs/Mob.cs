@@ -23,6 +23,6 @@
             life = NewLife;
         }
 
-        protected void Attack<T>(T deffenser, int AttackDamage) where T : Mob => deffenser.life -= GameComponents.GameManager.rand.Next(AttackDamage, AttackDamage + 5) - deffenser.Resistence;
+        protected void Attack(Mob deffenser, int AttackDamage) => deffenser.life -= GameComponents.GameManager.rand.Next(AttackDamage, AttackDamage + 5) - deffenser.Resistence;
     }
 }

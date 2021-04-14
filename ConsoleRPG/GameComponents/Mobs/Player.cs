@@ -128,7 +128,7 @@ namespace ConsoleRPG.Mobs
             Console.ReadLine();
         }
 
-        public bool TryRunAway(int EnemySpeed) => EnemySpeed >= Speed;
+        public bool TryRunAway(int EnemySpeed) => EnemySpeed < Speed;
 
         private void Upgrade()
         {

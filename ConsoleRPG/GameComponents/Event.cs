@@ -6,7 +6,7 @@ namespace ConsoleRPG.GameComponents
 {
     internal enum Events { Battle, Nothing, Items }
 
-    internal class Event
+    internal static class Event
     {
         public static void RandomEvent(Player player)
         {
@@ -29,7 +29,7 @@ namespace ConsoleRPG.GameComponents
 
         private static void Battle(Player player)
         {
-            var enemy = GameManager.RandomEnemy(player);
+            var enemy = GameManager.GenerateEnemy(player);
             Console.WriteLine($"{player.name} found an enemy, {enemy.name} !");
             Console.ReadLine();
         Start:
@@ -75,28 +75,19 @@ namespace ConsoleRPG.GameComponents
             }
 
             Console.Clear();
-            if (enemy.life <= 0)
-            {
-                GameManager.EnemyKilled(player, enemy);
-                goto End;
-            }
+            if (enemy.life <= 0) GameManager.EnemyKilled(player, enemy);
             else
             {
                 enemy.AI(player);
-                if (player.life <= 0)
-                {
-                    GameManager.GameOver(player, enemy.name);
-                    goto End;
-                }
+                if (player.life <= 0) GameManager.GameOver(player, enemy.name);
                 else goto Start;
             }
-
         End:;
         }
 
         private static void Items(Player player)
         {
-            List<Item> itemsFound = Item.RandomList(1, 5);
+            var itemsFound = GameManager.GenerateItemList(1, 4);
             Console.WriteLine($"{player.name} found {itemsFound.Count} item(s) !\n");
             foreach (var item in itemsFound)
             {

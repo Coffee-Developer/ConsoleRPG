@@ -4,14 +4,14 @@ using System.Collections.Generic;
 
 namespace ConsoleRPG.GameComponents
 {
-    internal class Market
+    internal static class Market
     {
         private static string[] firstNames = { "Gregory's", "Borvis", "Renan's", "Poloris", "Krager's", "Viuma's" }, secondNames = { " Gregocery", " Store", " Storage", " Bar" };
 
         public static void Menu(Player player)
         {
             string storeName = firstNames[GameManager.rand.Next(firstNames.Length)] + secondNames[GameManager.rand.Next(secondNames.Length)];
-            var itemsOnSale = Item.RandomList(1, 6);
+            var itemsOnSale = GameManager.GenerateItemList(1, 6);
 
         Start:
             Console.Clear();
@@ -42,9 +42,7 @@ namespace ConsoleRPG.GameComponents
             Console.Clear();
             if (itemsOnSale.Count != 0)
             {
-                Console.WriteLine($"{player.name} coins: {player.coins}\n");
-                for (int i = 0; i < itemsOnSale.Count; i++) Console.WriteLine($"{i + 1}. {itemsOnSale[i].name}\nPrice: {itemsOnSale[i].price}\nDescription: {itemsOnSale[i].description}\n");
-                Console.WriteLine("-1. Exit\n");
+                DisplayInfo(player.name, player.coins, itemsOnSale);
                 string option = Console.ReadLine();
                 if (option != "-1")
                 {
@@ -84,9 +82,7 @@ namespace ConsoleRPG.GameComponents
             Console.Clear();
             if (player.inventory.Count != 0)
             {
-                Console.WriteLine($"{player.name} coins: {player.coins}\n");
-                for (int i = 0; i < player.inventory.Count; i++) Console.WriteLine($"{i + 1}. {player.inventory[i].name}\nDescription: {player.inventory[i].description}\n");
-                Console.WriteLine("-1. Exit\n");
+                DisplayInfo(player.name, player.coins, itemsOnSale);
                 string option = Console.ReadLine();
                 if (option != "-1")
                 {
@@ -110,6 +106,13 @@ namespace ConsoleRPG.GameComponents
                 Console.WriteLine("Woah !\nYou have no items");
                 Console.ReadLine();
             }
+        }
+
+        private static void DisplayInfo(string playerName, int playerCoins, List<Item> itemsOnSale)
+        {
+            Console.WriteLine($"{playerName} coins: {playerCoins}\n");
+            for (int i = 0; i < itemsOnSale.Count; i++) Console.WriteLine($"{i + 1}. {itemsOnSale[i].name}\nPrice: {itemsOnSale[i].price}\nDescription: {itemsOnSale[i].description}\n");
+            Console.WriteLine("-1. Exit\n");
         }
     }
 }

@@ -4,10 +4,11 @@ using System;
 
 namespace ConsoleRPG
 {
-    internal class Game
+    internal static class Game
     {
         public static void Start(Player player)
         {
+            GameManager.playerIsDead = false;
             if (player is null) player = GameManager.CreatePlayer();
 
             Start:
