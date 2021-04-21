@@ -1,6 +1,5 @@
 ﻿using ConsoleRPG.Mobs;
 using System;
-using System.Collections.Generic;
 
 namespace ConsoleRPG.GameComponents
 {
@@ -36,11 +35,11 @@ namespace ConsoleRPG.GameComponents
             Console.Clear();
             Console.WriteLine($"{enemy.name}:\nLife: {enemy.life}\nLevel: {enemy.level}\nAttack damage: {enemy.AttackDamage}\nStrength: {enemy.Strength}\nResistence: {enemy.Resistence}\nSpeed: {enemy.Speed}\n\n" +
                 $"{player.name}:\nLife: {player.life}\nLevel: {player.level}\nAttack damage: {player.AttackDamage}\nStrength: {player.Strength}\nResistence: {player.Resistence}\nSpeed: {player.Speed}\nMana: {player.mana}\n\n" +
-                $"1. Light attack ({player.lightAttack.ToString().Replace("_", "")})  2. Heavy attack ({player.heavyAttack.ToString().Replace("_", "")})  3. Run away  4. Check inventory\n");
+                $"1. Light attack ({player.lightAttack.ToString().Replace("_", "")})  2. Heavy attack ({player.heavyAttack.ToString().Replace("_", " ")})  3. Run away  4. Check inventory\n");
             switch (Console.ReadLine())
             {
                 case "1":
-                    player.LightAttack(player.lightAttack, enemy);
+                    player.Attack(AttackTypes.LightAttack, enemy);
                     break;
 
                 case "2":
@@ -50,7 +49,7 @@ namespace ConsoleRPG.GameComponents
                         Console.ReadLine();
                         goto Start;
                     }
-                    else player.HeavyAttack(player.heavyAttack, enemy);
+                    else player.Attack(AttackTypes.HeavyAttack, enemy);
                     break;
 
                 case "3":

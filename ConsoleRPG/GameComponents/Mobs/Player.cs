@@ -7,6 +7,8 @@ namespace ConsoleRPG.Mobs
     internal enum Classes
     { Warrior = 1, Wizzard, Archer }
 
+    internal enum AttackTypes { LightAttack, HeavyAttack }
+
     internal enum LightAttacks
     { Blade_attack, Spell_attack, Bow_attack }
 
@@ -35,7 +37,7 @@ namespace ConsoleRPG.Mobs
                     levelUp = true;
                     level++;
                     skillPoints++;
-                    xp -= XpNextLevel;
+                    xp = Math.Abs(xp - XpNextLevel);
                     life = NewLife;
                     Console.WriteLine($"\n{name} got a new level !\nLevel {level} !\n");
                     Console.ReadLine();
@@ -113,18 +115,21 @@ namespace ConsoleRPG.Mobs
             else Console.ReadLine();
         }
 
-        public void LightAttack(LightAttacks lightAttack, Enemy enemy)
+        public void Attack(AttackTypes attack, Enemy enemy)
         {
-            Console.WriteLine($"\n{name} uses {lightAttack.ToString().Replace("_", " ")} !");
-            Attack(enemy, AttackDamage);
-            Console.ReadLine();
-        }
+            switch (attack)
+            {
+                case AttackTypes.LightAttack:
+                    Console.WriteLine($"\n{name} uses {lightAttack.ToString().Replace("_", " ")} !");
+                    Attack(enemy, AttackDamage);
+                    break;
 
-        public void HeavyAttack(HeavyAttacks heavyAttack, Enemy enemy)
-        {
-            mana -= 5 * difficultyFactor;
-            Attack(enemy, AttackDamage + 5);
-            Console.WriteLine($"\n{name} uses {heavyAttack.ToString().Replace("_", " ")} !");
+                case AttackTypes.HeavyAttack:
+                    mana -= 5 * difficultyFactor;
+                    Console.WriteLine($"\n{name} uses {heavyAttack.ToString().Replace("_", " ")} !");
+                    Attack(enemy, AttackDamage + 5);
+                    break;
+            }
             Console.ReadLine();
         }
 
@@ -134,6 +139,7 @@ namespace ConsoleRPG.Mobs
         {
             for (; skillPoints != 0; skillPoints--)
             {
+                levelUp = false;
             SkillPoints:
                 Console.Clear();
                 Console.WriteLine($"Add {skillPoints} point(s) to {name}:\n\n1. Strength: {strengthPoints}\n\n2. Resistence: {resistencePoints}\n\n3. Speed: {speedPoints}\n\n4. Mana: {manaPoints}\n");
@@ -161,6 +167,7 @@ namespace ConsoleRPG.Mobs
                         goto SkillPoints;
                 }
             }
+            mana = manaPoints * 10;
         }
     }
 }

@@ -26,9 +26,10 @@ namespace ConsoleRPG.GameComponents
 
         public void Effect(Player player)
         {
+            Console.WriteLine();
             if (effectLife != 0) Console.WriteLine($"{player.name}: Life: {player.life} => {player.life += effectLife}\n");
 
-            if (effectXp != 0) Console.WriteLine($"{player.name}: Xp: {player.Xp} => {player.Xp += effectLife}\n");
+            if (effectXp != 0) Console.WriteLine($"{player.name}: Xp: {player.Xp} => {player.Xp += effectXp}\n");
 
             if (effectStrength != 0) Console.WriteLine($"{player.name}: Strength points: {player.strengthPoints} => {player.strengthPoints += effectStrength}\n");
 
