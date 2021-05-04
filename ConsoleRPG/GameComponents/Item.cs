@@ -34,9 +34,9 @@ namespace ConsoleRPG.GameComponents
 
             if (effectResistence != 0) Console.WriteLine($"{player.name}: Resistence points: {player.resistencePoints} => {player.resistencePoints += effectResistence}\n");
 
-            if (effectMana != 0) Console.WriteLine($"{player.name}: Resistence points: {player.manaPoints} => {player.manaPoints += effectMana}\n");
+            if (effectMana != 0) Console.WriteLine($"{player.name}: Mana points: {player.manaPoints} => {player.manaPoints += effectMana}\n");
 
-            if (effectSpeed != 0) Console.WriteLine($"{player.name}: Resistence points: {player.speedPoints} => {player.speedPoints += effectSpeed}\n");
+            if (effectSpeed != 0) Console.WriteLine($"{player.name}: Speed points: {player.speedPoints} => {player.speedPoints += effectSpeed}\n");
             Console.ReadLine();
         }
     }
