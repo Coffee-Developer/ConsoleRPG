@@ -202,7 +202,7 @@ namespace ConsoleRPG.GameComponents
             string description = "";
             int effectLife = 0, effectXp = 0, effectStrength = 0, effectResistence = 0, effectMana = 0, effectSpeed = 0, price = 0;
 
-            // TODO
+            // TODO yet
             switch (item)
             {
                 case Items.Xp_potion:
@@ -236,42 +236,42 @@ namespace ConsoleRPG.GameComponents
                     break;
 
                 case Items.Booster:
-                    description = "";
-                    price = 35;
                     effectSpeed++;
+                    description = $"A kind of potion created by wizzards a long time ago.\nAdds {effectSpeed} speed points";
+                    price = 35;
                     break;
 
                 case Items.Estus_flask:
-                    description = "";
-                    price = 35;
                     effectResistence++;
+                    description = $"The Undead treasure these dull green flasks.\nAdds {effectResistence} resistence points";
+                    price = 35;
                     break;
 
                 case Items.Vigorite:
-                    description = "";
-                    price = 35;
                     effectStrength++;
+                    description = $"A bottle with 50mg of vigoritin and Elixir mixed\nAdds {effectStrength} strength points";
+                    price = 35;                   
                     break;
 
                 case Items.Lerite:
-                    description = "";
-                    price = 40;
                     effectLife += 10;
                     effectResistence++;
+                    description = $"A little recipient filled with dragon blood and human blood\n Adds {effectLife} health and {effectResistence} resistence points";
+                    price = 40;                    
                     break;
 
                 case Items.Mermel:
-                    description = "";
-                    price = 40;
                     effectSpeed++;
                     effectStrength++;
+                    description = $"";
+                    price = 40;                   
                     break;
 
                 case Items.Latus_potion:
-                    description = "";
-                    price = 40;
                     effectMana++;
                     effectXp += 10;
+                    description = $"";
+                    price = 40;                    
                     break;
             }
 
