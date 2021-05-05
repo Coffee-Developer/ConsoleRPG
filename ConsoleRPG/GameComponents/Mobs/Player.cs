@@ -4,17 +4,6 @@ using System.Collections.Generic;
 
 namespace ConsoleRPG.Mobs
 {
-    internal enum Classes
-    { Warrior = 1, Wizzard, Archer }
-
-    internal enum AttackTypes { LightAttack, HeavyAttack }
-
-    internal enum LightAttacks
-    { Blade_attack, Spell_attack, Bow_attack }
-
-    internal enum HeavyAttacks
-    { Blade_storm, Strong_wind, Long_bow }
-
     internal class Player : Mob
     {
         #region Properties field

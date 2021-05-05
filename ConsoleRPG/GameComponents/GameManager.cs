@@ -4,9 +4,6 @@ using System.Collections.Generic;
 
 namespace ConsoleRPG.GameComponents
 {
-    internal enum Difficulties
-    { Easy = 1, Medium, Hard }
-
     internal static class GameManager
     {
         #region Properties
@@ -187,7 +184,7 @@ namespace ConsoleRPG.GameComponents
         /// </summary>
         /// <param name="min">List minimum values</param>
         /// <param name="max">List maximum values</param>
-        /// <returns>List of type Item</returns>
+        /// <returns>Random List<Item></returns>
         public static List<Item> GenerateItemList(int min, int max)
         {
             int qtdItems = rand.Next(min, max);

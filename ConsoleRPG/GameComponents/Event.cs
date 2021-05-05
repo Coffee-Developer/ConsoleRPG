@@ -3,8 +3,6 @@ using System;
 
 namespace ConsoleRPG.GameComponents
 {
-    internal enum Events { Battle, Nothing, Items }
-
     internal static class Event
     {
         public static void RandomEvent(Player player)

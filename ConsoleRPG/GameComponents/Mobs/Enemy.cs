@@ -1,8 +1,5 @@
 ﻿namespace ConsoleRPG.Mobs
 {
-    internal enum Enemys
-    { Zombie, Skeleton, Slime, Dragon, Burned, Iceman }
-
     internal class Enemy : Mob
     {
         public Enemy(float xp, int coins, string name, int level, int strengthPoints, int resistencePoints, int speedPoints) : base(level, name, strengthPoints, resistencePoints, speedPoints)
