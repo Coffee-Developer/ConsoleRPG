@@ -48,8 +48,7 @@ namespace ConsoleRPG.GameComponents
                 string option = Console.ReadLine();
                 if (option != "-1")
                 {
-                    try
-                    {
+                    GameManager.ValidateOption(() => {
                         var selectedItem = itemsOnSale[int.Parse(option) - 1];
                         if (player.coins - selectedItem.price < 0)
                         {
@@ -62,12 +61,7 @@ namespace ConsoleRPG.GameComponents
                             player.inventory.Add(selectedItem);
                             itemsOnSale.Remove(selectedItem);
                         }
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("Invalid value !");
-                        Console.ReadLine();
-                    }
+                    });
                     goto Start;
                 }
             }
@@ -88,18 +82,12 @@ namespace ConsoleRPG.GameComponents
                 string option = Console.ReadLine();
                 if (option != "-1")
                 {
-                    try
-                    {
+                    GameManager.ValidateOption(() => {
                         var selectedItem = player.inventory[int.Parse(option) - 1];
                         player.coins += selectedItem.price;
                         itemsOnSale.Add(selectedItem);
                         player.inventory.Remove(selectedItem);
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("Invalid value !");
-                        Console.ReadLine();
-                    }
+                    });
                     goto Start;
                 }
             }

@@ -37,8 +37,7 @@ namespace ConsoleRPG
                     goto Start;
 
                 default:
-                    Console.WriteLine("Invalid value !");
-                    Console.ReadLine();
+                    GameManager.InvalidSelection();
                     goto Start;
             }
         }
@@ -57,8 +56,7 @@ namespace ConsoleRPG
                     try { Start(GameManager.savedPlayers[int.Parse(option) - 1]); }
                     catch (Exception)
                     {
-                        Console.WriteLine("Invalid value !");
-                        Console.ReadLine();
+                        GameManager.InvalidSelection();
                         goto Start;
                     }
                 }
@@ -89,8 +87,7 @@ namespace ConsoleRPG
                     break;
 
                 default:
-                    Console.WriteLine("Invalid value !");
-                    Console.ReadLine();
+                    GameManager.InvalidSelection();
                     goto Start;
             }
         }

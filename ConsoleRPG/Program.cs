@@ -27,8 +27,7 @@ namespace ConsoleRPG
                     break;
 
                 default:
-                    Console.WriteLine("Invalid value !");
-                    Console.ReadLine();
+                    GameComponents.GameManager.InvalidSelection();
                     goto Start;
             }
         }

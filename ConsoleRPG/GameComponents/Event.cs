@@ -66,8 +66,7 @@ namespace ConsoleRPG.GameComponents
                     goto Start;
 
                 default:
-                    Console.WriteLine("Invalid value !");
-                    Console.ReadLine();
+                    GameManager.InvalidSelection();
                     goto Start;
             }
 

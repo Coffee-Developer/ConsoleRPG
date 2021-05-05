@@ -23,10 +23,10 @@ namespace ConsoleRPG.Mobs
                 xp = value;
                 if (xp >= XpNextLevel)
                 {
+                    xp = Math.Abs(xp - XpNextLevel);
                     levelUp = true;
                     level++;
                     skillPoints++;
-                    xp = Math.Abs(xp - XpNextLevel);
                     life = NewLife;
                     Console.WriteLine($"\n{name} got a new level !\nLevel {level} !\n");
                     Console.ReadLine();
@@ -59,17 +59,11 @@ namespace ConsoleRPG.Mobs
                 string option = Console.ReadLine();
                 if (option != "-1")
                 {
-                    try
-                    {
+                    GameManager.ValidateOption(() => {
                         var selectedItem = inventory[int.Parse(option) - 1];
                         selectedItem.Effect(this);
                         inventory.Remove(selectedItem);
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("Invalid value !");
-                        Console.ReadLine();
-                    }
+                    });
                     goto Start;
                 }
             }
@@ -151,8 +145,7 @@ namespace ConsoleRPG.Mobs
                         break;
 
                     default:
-                        Console.WriteLine("Invalid value !");
-                        Console.ReadLine();
+                        GameManager.InvalidSelection();
                         goto SkillPoints;
                 }
             }

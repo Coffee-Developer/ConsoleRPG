@@ -193,6 +193,18 @@ namespace ConsoleRPG.GameComponents
             return items;
         }
 
+        public static void InvalidSelection() 
+        {
+            Console.WriteLine("Invalid value !");
+            Console.ReadLine();
+        }
+
+        public static void ValidateOption(Action action) 
+        {
+            try { action(); }
+            catch (Exception) { InvalidSelection(); }
+        }
+
         private static Item GenerateItem()
         {
             Items item = (Items)new Random().Next(11);
@@ -253,14 +265,14 @@ namespace ConsoleRPG.GameComponents
                 case Items.Lerite:
                     effectLife += 10;
                     effectResistence++;
-                    description = $"A little recipient filled with dragon blood and human blood\n Adds {effectLife} health and {effectResistence} resistence points";
+                    description = $"A small recipient filled with dragon blood and human blood\nAdds {effectLife} health and {effectResistence} resistence points";
                     price = 40;                    
                     break;
 
                 case Items.Mermel:
                     effectSpeed++;
                     effectStrength++;
-                    description = $"";
+                    description = $"A bottle with Elixir, Vigorite and.... melon !?\nAdds {effectSpeed} speed points and {effectStrength} strenght points";
                     price = 40;                   
                     break;
 
