@@ -8,6 +8,8 @@ namespace ConsoleRPG.GameComponents
     {
         #region Properties
 
+        public delegate string ForEachItemList<T>(T item);
+
         /// <summary>
         /// Stores the game difficulty (standard difficulty = medium).
         /// </summary>
@@ -46,11 +48,10 @@ namespace ConsoleRPG.GameComponents
             Console.Clear();
             Console.WriteLine($"Current color: {Console.BackgroundColor}\n\nSelect a new color:\n");
             for (int i = 0; i < 12; i++) Console.WriteLine($"{i + 1}. {(ConsoleColor)i}\n");
-            try { Console.BackgroundColor = (ConsoleColor)int.Parse(Console.ReadLine().Trim()) - 1; }
-            catch (Exception)
+            string option = Console.ReadLine().Trim();
+            if (option != "-1") 
             {
-                Console.WriteLine("Invalid value !");
-                Console.ReadLine();
+                ValidateOption(() => Console.BackgroundColor = (ConsoleColor)int.Parse(option) - 1);
                 goto Start;
             }
         }
@@ -84,9 +85,7 @@ namespace ConsoleRPG.GameComponents
             (LightAttacks lightAttack, HeavyAttacks heavyAttack, int strengthPoints, int resistencePoints, int speedPoints, int manaPoints) = GetSkills(playerName, playerClass);
 
         End:
-            Console.Clear();
-            Console.WriteLine($"This is your character:\n\nName: {playerName}\nClass: {playerClass}\nLight attack: {lightAttack.ToString().Replace("_", " ")}\nHeavy attack: {heavyAttack.ToString().Replace("_", " ")}\nStrength: {strengthPoints}\nResistence: {resistencePoints}\nSpeed: {speedPoints}\nMana: {manaPoints}\n\n1. Continue |  2. Restart\n");
-            switch (Console.ReadLine())
+            switch (ClearDisplayRead($"This is your character:\n\nName: {playerName}\nClass: {playerClass}\nLight attack: {lightAttack.ToString().Replace("_", " ")}\nHeavy attack: {heavyAttack.ToString().Replace("_", " ")}\nStrength: {strengthPoints}\nResistence: {resistencePoints}\nSpeed: {speedPoints}\nMana: {manaPoints}\n\n1. Continue |  2. Restart\n"))
             {
                 case "1":
                     var player = new Player(playerClass, lightAttack, heavyAttack, 1, playerName, strengthPoints, resistencePoints, speedPoints, manaPoints);
@@ -97,8 +96,7 @@ namespace ConsoleRPG.GameComponents
                     goto Start;
 
                 default:
-                    Console.WriteLine("Invalid value !");
-                    Console.ReadLine();
+                    DisplayRead("Invalid value !");
                     goto End;
             }
         }
@@ -110,8 +108,7 @@ namespace ConsoleRPG.GameComponents
         {
             player.Xp += enemy.Xp;
             player.coins += enemy.coins;
-            Console.WriteLine($"{player.name} has killed the {enemy.name} !\n\nXp earned: {enemy.Xp}\n\nCoins: {enemy.coins}\n");
-            Console.ReadLine();
+            DisplayRead($"{player.name} has killed the {enemy.name} !\n\nXp earned: {enemy.Xp}\n\nCoins: {enemy.coins}\n");
         }
 
         /// <summary>
@@ -121,8 +118,7 @@ namespace ConsoleRPG.GameComponents
         {
             playerIsDead = true;
             savedPlayers.Remove(player);
-            Console.WriteLine($"{player.name} was killed by {enemyName} !\n");
-            Console.ReadLine();
+            DisplayRead($"{player.name} was killed by {enemyName} !\n");
         }
 
         /// <summary>
@@ -193,16 +189,45 @@ namespace ConsoleRPG.GameComponents
             return items;
         }
 
-        public static void InvalidSelection() 
-        {
-            Console.WriteLine("Invalid value !");
-            Console.ReadLine();
-        }
-
         public static void ValidateOption(Action action) 
         {
             try { action(); }
-            catch (Exception) { InvalidSelection(); }
+            catch (Exception) { DisplayRead("Invalid value !"); }
+        }
+
+        public static string ClearDisplayRead(string textToDisplay) 
+        {
+            Console.Clear();
+            return DisplayRead(textToDisplay);
+        }
+
+        public static string DisplayRead(string textToDisplay) 
+        {
+            Console.WriteLine(textToDisplay);
+            return Console.ReadLine();
+        }
+        
+        public static string DisplayItemsInList<T>(string text, List<T> items, ForEachItemList<T> textForEachItem)
+        {
+            Console.Clear();
+            Console.WriteLine(text);
+            for (int i = 0; i < items.Count; i++) Console.WriteLine($"{i + 1}. {textForEachItem(items[i])}");
+            return DisplayRead("-1. Exit\n");
+        }
+
+        public static void DeleteSave()
+        {
+        Start:
+            if (GameManager.savedPlayers.Count != 0)
+            {
+                string option = GameManager.DisplayItemsInList("Select a save to delete or type -1 to exit:\n", GameManager.savedPlayers, player => $"{player.name}");
+                if (!option.Equals("-1"))
+                {
+                    GameManager.ValidateOption(() => savedPlayers.Remove(savedPlayers[int.Parse(option) - 1]));
+                    goto Start;
+                }
+            }
+            else GameManager.ClearDisplayRead("No save detected !");
         }
 
         private static Item GenerateItem()
@@ -303,12 +328,7 @@ namespace ConsoleRPG.GameComponents
             }
         }
 
-        private static string GetName()
-        {
-            Console.Clear();
-            Console.Write("Type your character name: ");
-            return Console.ReadLine().Trim();
-        }
+        private static string GetName() => ClearDisplayRead("Type your character name: ").Trim();
 
         private static (LightAttacks, HeavyAttacks, int, int, int, int) GetSkills(string playerName, Classes playerClass)
         {
@@ -343,9 +363,7 @@ namespace ConsoleRPG.GameComponents
             for (int i = 3; i != 0; i--)
             {
             SkillPoints:
-                Console.Clear();
-                Console.WriteLine($"Add {i} point(s) to {playerName}:\n\n1. Strength: {strengthPoints}\n\n2. Resistence: {resistencePoints}\n\n3. Speed: {speedPoints}\n\n4. Mana: {manaPoints}\n");
-                switch (Console.ReadLine())
+                switch (ClearDisplayRead($"Add {i} point(s) to {playerName}:\n\n1. Strength: {strengthPoints}\n\n2. Resistence: {resistencePoints}\n\n3. Speed: {speedPoints}\n\n4. Mana: {manaPoints}\n"))
                 {
                     case "1":
                         strengthPoints++;
@@ -364,8 +382,7 @@ namespace ConsoleRPG.GameComponents
                         break;
 
                     default:
-                        Console.WriteLine("Invalid value !");
-                        Console.ReadLine();
+                        DisplayRead("Invalid value !");
                         goto SkillPoints;
                 }
             }

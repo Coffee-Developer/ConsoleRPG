@@ -1,6 +1,5 @@
 ﻿using ConsoleRPG.GameComponents;
 using ConsoleRPG.Mobs;
-using System;
 
 namespace ConsoleRPG
 {
@@ -12,9 +11,7 @@ namespace ConsoleRPG
             if (player is null) player = GameManager.CreatePlayer();
 
             Start:
-            Console.Clear();
-            Console.WriteLine($"Select an action for {player.name}\n\n1. Explore\n\n2. Go to the market\n\n3. Check inventory\n\n4. Check status\n\n-1. Exit game\n");
-            switch (Console.ReadLine())
+            switch (GameManager.ClearDisplayRead($"Select an action for {player.name}\n\n1. Explore\n\n2. Go to the market\n\n3. Check inventory\n\n4. Check status\n\n-1. Exit game\n"))
             {
                 case "-1":
                     break;
@@ -37,7 +34,7 @@ namespace ConsoleRPG
                     goto Start;
 
                 default:
-                    GameManager.InvalidSelection();
+                    GameManager.DisplayRead("Invalid value !");
                     goto Start;
             }
         }
@@ -45,35 +42,22 @@ namespace ConsoleRPG
         public static void Continue()
         {
         Start:
-            Console.Clear();
             if (GameManager.savedPlayers.Count != 0)
             {
-                Console.WriteLine("Select a save to continue:\n");
-                for (int i = 0; i < GameManager.savedPlayers.Count; i++) Console.WriteLine($"{i + 1}. {GameManager.savedPlayers[i].name}\n");
-                string option = Console.ReadLine();
+                string option = GameManager.DisplayItemsInList("Select a save to continue or type -1 to exit:\n", GameManager.savedPlayers, player => $"{player.name}");
                 if (!option.Equals("-1"))
                 {
-                    try { Start(GameManager.savedPlayers[int.Parse(option) - 1]); }
-                    catch (Exception)
-                    {
-                        GameManager.InvalidSelection();
-                        goto Start;
-                    }
+                    GameManager.ValidateOption(() => Start(GameManager.savedPlayers[int.Parse(option) - 1]));
+                    goto Start;
                 }
             }
-            else
-            {
-                Console.WriteLine("No save detected !");
-                Console.ReadLine();
-            }
+            else GameManager.ClearDisplayRead("No save detected !");
         }
 
         public static void Configs()
         {
         Start:
-            Console.Clear();
-            Console.WriteLine("1. Change difficulty\n\n2. Change game color\n\n3. Exit\n");
-            switch (Console.ReadLine())
+            switch (GameManager.ClearDisplayRead("1. Change difficulty\n\n2. Change game color\n\n3. Delete a save\n\n4. Exit\n"))
             {
                 case "1":
                     GameManager.ChangeDifficulty();
@@ -84,10 +68,14 @@ namespace ConsoleRPG
                     goto Start;
 
                 case "3":
+                    GameManager.DeleteSave();
+                    goto Start;
+
+                case "4":
                     break;
 
                 default:
-                    GameManager.InvalidSelection();
+                    GameManager.DisplayRead("Invalid value !");
                     goto Start;
             }
         }

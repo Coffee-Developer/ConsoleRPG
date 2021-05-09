@@ -28,9 +28,7 @@ namespace ConsoleRPG.Mobs
                     level++;
                     skillPoints++;
                     life = NewLife;
-                    Console.WriteLine($"\n{name} got a new level !\nLevel {level} !\n");
-                    Console.ReadLine();
-                    Console.Clear();
+                    GameManager.ClearDisplayRead($"\n{name} got a new level !\nLevel {level} !\n");
                 }
             }
             get => xp;
@@ -51,12 +49,9 @@ namespace ConsoleRPG.Mobs
         public void Inventory()
         {
         Start:
-            Console.Clear();
             if (inventory.Count != 0)
             {
-                for (int i = 0; i < inventory.Count; i++) Console.WriteLine($"{i + 1}. {inventory[i].name}\nDescription: {inventory[i].description}\n");
-                Console.WriteLine("-1. Exit\n");
-                string option = Console.ReadLine();
+                string option = GameManager.DisplayItemsInList("Select a item to use:\n", inventory, item => $"{item.name}\nDescription: {item.description}\n");
                 if (option != "-1")
                 {
                     GameManager.ValidateOption(() => {
@@ -67,22 +62,16 @@ namespace ConsoleRPG.Mobs
                     goto Start;
                 }
             }
-            else
-            {
-                Console.WriteLine($"{name} has no items !");
-                Console.ReadLine();
-            }
+            else GameManager.ClearDisplayRead($"{name} has no items !");
         }
 
         public void Status()
         {
         Start:
-            Console.Clear();
-            Console.WriteLine($"Name: {name}\n\nLife: {life}\n\nClass: {playerClass}\n\nLevel: {level}\n\nSkill points: {skillPoints}\n\nXp: {Xp}\n\nXp for next level: {XpNextLevel}\n\nStrength: {Strength}\n\nResistence: {Resistence}\n\nMana: {mana}\n\nSpeed: {Speed}\n");
+            GameManager.ClearDisplayRead($"Name: {name}\n\nLife: {life}\n\nClass: {playerClass}\n\nLevel: {level}\n\nSkill points: {skillPoints}\n\nXp: {Xp}\n\nXp for next level: {XpNextLevel}\n\nStrength: {Strength}\n\nResistence: {Resistence}\n\nMana: {mana}\n\nSpeed: {Speed}\n");
             if (levelUp)
             {
-                Console.WriteLine($"\n{name} got a new level !\nLevel {level} !\n\nDo you want to upgrade ?\n\ns / n\n");
-                switch (Console.ReadLine())
+                switch (GameManager.DisplayRead($"\n{name} got a new level !\nLevel {level} !\n\nDo you want to upgrade ?\n\ns / n\n"))
                 {
                     case "s":
                         Upgrade();
@@ -95,7 +84,6 @@ namespace ConsoleRPG.Mobs
                         goto Start;
                 }
             }
-            else Console.ReadLine();
         }
 
         public void Attack(AttackTypes attack, Enemy enemy)
@@ -124,9 +112,7 @@ namespace ConsoleRPG.Mobs
             {
                 levelUp = false;
             SkillPoints:
-                Console.Clear();
-                Console.WriteLine($"Add {skillPoints} point(s) to {name}:\n\n1. Strength: {strengthPoints}\n\n2. Resistence: {resistencePoints}\n\n3. Speed: {speedPoints}\n\n4. Mana: {manaPoints}\n");
-                switch (Console.ReadLine())
+                switch (GameManager.ClearDisplayRead($"Add {skillPoints} point(s) to {name}:\n\n1. Strength: {strengthPoints}\n\n2. Resistence: {resistencePoints}\n\n3. Speed: {speedPoints}\n\n4. Mana: {manaPoints}\n"))
                 {
                     case "1":
                         strengthPoints++;
@@ -145,7 +131,7 @@ namespace ConsoleRPG.Mobs
                         break;
 
                     default:
-                        GameManager.InvalidSelection();
+                        GameManager.DisplayRead("Invalid value !");
                         goto SkillPoints;
                 }
             }

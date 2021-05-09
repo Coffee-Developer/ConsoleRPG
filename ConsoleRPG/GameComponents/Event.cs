@@ -7,7 +7,6 @@ namespace ConsoleRPG.GameComponents
     {
         public static void RandomEvent(Player player)
         {
-            Console.Clear();
             switch ((Events)GameManager.rand.Next(3))
             {
                 case Events.Battle:
@@ -27,14 +26,12 @@ namespace ConsoleRPG.GameComponents
         private static void Battle(Player player)
         {
             var enemy = GameManager.GenerateEnemy(player);
-            Console.WriteLine($"{player.name} found an enemy, {enemy.name} !");
-            Console.ReadLine();
+            GameManager.DisplayRead($"{player.name} found an enemy, {enemy.name} !");
+            
         Start:
-            Console.Clear();
-            Console.WriteLine($"{enemy.name}:\nLife: {enemy.life}\nLevel: {enemy.level}\nAttack damage: {enemy.AttackDamage}\nStrength: {enemy.Strength}\nResistence: {enemy.Resistence}\nSpeed: {enemy.Speed}\n\n" +
+            switch (GameManager.ClearDisplayRead($"{enemy.name}:\nLife: {enemy.life}\nLevel: {enemy.level}\nAttack damage: {enemy.AttackDamage}\nStrength: {enemy.Strength}\nResistence: {enemy.Resistence}\nSpeed: {enemy.Speed}\n\n" +
                 $"{player.name}:\nLife: {player.life}\nLevel: {player.level}\nAttack damage: {player.AttackDamage}\nStrength: {player.Strength}\nResistence: {player.Resistence}\nSpeed: {player.Speed}\nMana: {player.mana}\n\n" +
-                $"1. Light attack ({player.lightAttack.ToString().Replace("_", "")})  2. Heavy attack ({player.heavyAttack.ToString().Replace("_", " ")})  3. Run away  4. Check inventory\n");
-            switch (Console.ReadLine())
+                $"1. Light attack ({player.lightAttack.ToString().Replace("_", "")})  2. Heavy attack ({player.heavyAttack.ToString().Replace("_", " ")})  3. Run away  4. Check inventory\n"))
             {
                 case "1":
                     player.Attack(AttackTypes.LightAttack, enemy);
@@ -43,8 +40,7 @@ namespace ConsoleRPG.GameComponents
                 case "2":
                     if (player.mana - 10 <= 0)
                     {
-                        Console.WriteLine($"{player.name} has no mana !");
-                        Console.ReadLine();
+                        GameManager.DisplayRead($"{player.name} has no mana !");
                         goto Start;
                     }
                     else player.Attack(AttackTypes.HeavyAttack, enemy);
@@ -53,12 +49,10 @@ namespace ConsoleRPG.GameComponents
                 case "3":
                     if (player.TryRunAway(enemy.Speed))
                     {
-                        Console.WriteLine($"{player.name} ran away !");
-                        Console.ReadLine();
+                        GameManager.DisplayRead($"{player.name} ran away !");
                         goto End;
                     }
-                    else Console.WriteLine($"{player.name} failed to run away !");
-                    Console.ReadLine();
+                    else GameManager.DisplayRead($"{player.name} failed to run away !");
                     break;
 
                 case "4":
@@ -66,7 +60,7 @@ namespace ConsoleRPG.GameComponents
                     goto Start;
 
                 default:
-                    GameManager.InvalidSelection();
+                    GameManager.DisplayRead("Invalid value !");
                     goto Start;
             }
 
@@ -84,19 +78,10 @@ namespace ConsoleRPG.GameComponents
         private static void Items(Player player)
         {
             var itemsFound = GameManager.GenerateItemList(1, 4);
-            Console.WriteLine($"{player.name} found {itemsFound.Count} item(s) !\n");
-            foreach (var item in itemsFound)
-            {
-                Console.WriteLine($"{item.name}\nPrice: {item.price}\nDescription: {item.description}\n");
-                player.inventory.Add(item);
-            }
-            Console.ReadLine();
+            GameManager.DisplayItemsInList($"{player.name} found {itemsFound.Count} item(s) !\n", itemsFound, item => $"{item.name}\nPrice: {item.price}\nDescription: {item.description}\n");
+            player.inventory.AddRange(itemsFound);
         }
 
-        private static void Nothing(string playerName)
-        {
-            Console.WriteLine($"{playerName} found nothing !");
-            Console.ReadLine();
-        }
+        private static void Nothing(string playerName) => GameManager.ClearDisplayRead($"{playerName} found nothing !");
     }
 }
