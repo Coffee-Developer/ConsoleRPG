@@ -14,7 +14,7 @@
         public void AI(Player player)
         {
             Attack(player, GameComponents.GameManager.rand.Next(AttackDamage, AttackDamage + 10));
-            GameComponents.GameManager.DisplayRead($"{name} attacks {player.name}");
+            Helpers.DisplayRead($"{name} attacks {player.name}");
         }
     }
 }

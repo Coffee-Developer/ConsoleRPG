@@ -6,7 +6,7 @@ namespace ConsoleRPG.Mobs
 {
     internal class Player : Mob
     {
-        #region Properties field
+        #region Properties
 
         private bool levelUp = false;
         public int XpNextLevel => 50 * level * difficultyFactor;
@@ -28,7 +28,7 @@ namespace ConsoleRPG.Mobs
                     level++;
                     skillPoints++;
                     life = NewLife;
-                    GameManager.ClearDisplayRead($"\n{name} got a new level !\nLevel {level} !\n");
+                    Helpers.ClearDisplayRead($"\n{name} got a new level !\nLevel {level} !\n");
                 }
             }
             get => xp;
@@ -36,6 +36,7 @@ namespace ConsoleRPG.Mobs
 
         #endregion Properties field
 
+        #region Methods
         public Player(Classes playerClass, LightAttacks lightAttack, HeavyAttacks heavyAttack, int level, string name, int strengthPoints, int resistencePoints, int speedPoints, int manaPoints) : base(level, name, strengthPoints, resistencePoints, speedPoints)
         {
             difficultyFactor = GameManager.DifficultyFactor;
@@ -51,10 +52,10 @@ namespace ConsoleRPG.Mobs
         Start:
             if (inventory.Count != 0)
             {
-                string option = GameManager.DisplayItemsInList("Select a item to use:\n", inventory, item => $"{item.name}\nDescription: {item.description}\n");
+                string option = Helpers.DisplayItemsInList("Select a item to use:\n", inventory, item => $"{item.name}\nDescription: {item.description}\n");
                 if (option != "-1")
                 {
-                    GameManager.ValidateOption(() => {
+                    Helpers.ValidateOption(() => {
                         var selectedItem = inventory[int.Parse(option) - 1];
                         selectedItem.Effect(this);
                         inventory.Remove(selectedItem);
@@ -62,16 +63,16 @@ namespace ConsoleRPG.Mobs
                     goto Start;
                 }
             }
-            else GameManager.ClearDisplayRead($"{name} has no items !");
+            else Helpers.ClearDisplayRead($"{name} has no items !");
         }
 
         public void Status()
         {
         Start:
-            GameManager.ClearDisplayRead($"Name: {name}\n\nLife: {life}\n\nClass: {playerClass}\n\nLevel: {level}\n\nSkill points: {skillPoints}\n\nXp: {Xp}\n\nXp for next level: {XpNextLevel}\n\nStrength: {Strength}\n\nResistence: {Resistence}\n\nMana: {mana}\n\nSpeed: {Speed}\n");
+            Helpers.ClearDisplayRead($"Name: {name}\n\nLife: {life}\n\nClass: {playerClass}\n\nLevel: {level}\n\nSkill points: {skillPoints}\n\nXp: {Xp}\n\nXp for next level: {XpNextLevel}\n\nStrength: {Strength}\n\nResistence: {Resistence}\n\nMana: {mana}\n\nSpeed: {Speed}\n");
             if (levelUp)
             {
-                switch (GameManager.DisplayRead($"\n{name} got a new level !\nLevel {level} !\n\nDo you want to upgrade ?\n\ns / n\n"))
+                switch (Helpers.DisplayRead($"\n{name} got a new level !\nLevel {level} !\n\nDo you want to upgrade ?\n\ns / n\n"))
                 {
                     case "s":
                         Upgrade();
@@ -112,7 +113,7 @@ namespace ConsoleRPG.Mobs
             {
                 levelUp = false;
             SkillPoints:
-                switch (GameManager.ClearDisplayRead($"Add {skillPoints} point(s) to {name}:\n\n1. Strength: {strengthPoints}\n\n2. Resistence: {resistencePoints}\n\n3. Speed: {speedPoints}\n\n4. Mana: {manaPoints}\n"))
+                switch (Helpers.ClearDisplayRead($"Add {skillPoints} point(s) to {name}:\n\n1. Strength: {strengthPoints}\n\n2. Resistence: {resistencePoints}\n\n3. Speed: {speedPoints}\n\n4. Mana: {manaPoints}\n"))
                 {
                     case "1":
                         strengthPoints++;
@@ -131,11 +132,13 @@ namespace ConsoleRPG.Mobs
                         break;
 
                     default:
-                        GameManager.DisplayRead("Invalid value !");
+                        Helpers.DisplayRead("Invalid value !");
                         goto SkillPoints;
                 }
             }
             mana = manaPoints * 10;
         }
+    
+        #endregion
     }
 }

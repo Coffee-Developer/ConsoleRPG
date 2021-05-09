@@ -15,7 +15,7 @@ namespace ConsoleRPG.GameComponents
             string storeName = firstNames[GameManager.rand.Next(firstNames.Length)] + secondNames[GameManager.rand.Next(secondNames.Length)];
 
         Start:
-            switch (GameManager.ClearDisplayRead($"Wellcome to {storeName}, {player.name} !\n\n1. Buy items\n\n2. Sell items\n\n3. Exit\n"))
+            switch (Helpers.ClearDisplayRead($"Wellcome to {storeName}, {player.name} !\n\n1. Buy items\n\n2. Sell items\n\n3. Exit\n"))
             {
                 case "1":
                     Buy(player);
@@ -29,7 +29,7 @@ namespace ConsoleRPG.GameComponents
                     break;
 
                 default:
-                    GameManager.DisplayRead("Invalid value !");
+                    Helpers.DisplayRead("Invalid value !");
                     goto Start;
             }
         }
@@ -39,12 +39,12 @@ namespace ConsoleRPG.GameComponents
         Start:
             if (itemsOnSale.Count != 0)
             {
-                string option = GameManager.DisplayItemsInList($"{player.name} coins: {player.coins}\n", itemsOnSale, item => $"{item.name}\nPrice: {item.price}\nDescription: {item.description}\n");
+                string option = Helpers.DisplayItemsInList($"{player.name} coins: {player.coins}\n", itemsOnSale, item => $"{item.name}\nPrice: {item.price}\nDescription: {item.description}\n");
                 if (option != "-1")
                 {
-                    GameManager.ValidateOption(() => {
+                    Helpers.ValidateOption(() => {
                         var selectedItem = itemsOnSale[int.Parse(option) - 1];
-                        if (player.coins - selectedItem.price < 0) GameManager.DisplayRead("You have no money, come back here when you have more");
+                        if (player.coins - selectedItem.price < 0) Helpers.DisplayRead("You have no money, come back here when you have more");
                         else
                         {
                             player.coins -= selectedItem.price;
@@ -55,7 +55,7 @@ namespace ConsoleRPG.GameComponents
                     goto Start;
                 }
             }
-            else GameManager.ClearDisplayRead("Woah !\nYou bought everything");
+            else Helpers.ClearDisplayRead("Woah !\nYou bought everything");
         }
 
         private static void Sell(Player player)
@@ -63,10 +63,10 @@ namespace ConsoleRPG.GameComponents
         Start:
             if (player.inventory.Count != 0)
             {
-                string option = GameManager.DisplayItemsInList($"{player.name} coins: {player.coins}\n", player.inventory, item => $"{item.name}\nPrice: {item.price}\nDescription: {item.description}\n");
+                string option = Helpers.DisplayItemsInList($"{player.name} coins: {player.coins}\n", player.inventory, item => $"{item.name}\nPrice: {item.price}\nDescription: {item.description}\n");
                 if (option != "-1")
                 {
-                    GameManager.ValidateOption(() => {
+                    Helpers.ValidateOption(() => {
                         var selectedItem = player.inventory[int.Parse(option) - 1];
                         player.coins += selectedItem.price;
                         itemsOnSale.Add(selectedItem);
@@ -75,7 +75,7 @@ namespace ConsoleRPG.GameComponents
                     goto Start;
                 }
             }
-            else GameManager.ClearDisplayRead("Woah !\nYou have no items");
+            else Helpers.ClearDisplayRead("Woah !\nYou have no items");
         }
     }
 }

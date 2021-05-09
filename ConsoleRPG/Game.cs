@@ -11,7 +11,7 @@ namespace ConsoleRPG
             if (player is null) player = GameManager.CreatePlayer();
 
             Start:
-            switch (GameManager.ClearDisplayRead($"Select an action for {player.name}\n\n1. Explore\n\n2. Go to the market\n\n3. Check inventory\n\n4. Check status\n\n-1. Exit game\n"))
+            switch (Helpers.ClearDisplayRead($"Select an action for {player.name}\n\n1. Explore\n\n2. Go to the market\n\n3. Check inventory\n\n4. Check status\n\n-1. Exit game\n"))
             {
                 case "-1":
                     break;
@@ -34,7 +34,7 @@ namespace ConsoleRPG
                     goto Start;
 
                 default:
-                    GameManager.DisplayRead("Invalid value !");
+                    Helpers.DisplayRead("Invalid value !");
                     goto Start;
             }
         }
@@ -44,20 +44,20 @@ namespace ConsoleRPG
         Start:
             if (GameManager.savedPlayers.Count != 0)
             {
-                string option = GameManager.DisplayItemsInList("Select a save to continue or type -1 to exit:\n", GameManager.savedPlayers, player => $"{player.name}");
+                string option = Helpers.DisplayItemsInList("Select a save to continue or type -1 to exit:\n", GameManager.savedPlayers, player => $"{player.name}");
                 if (!option.Equals("-1"))
                 {
-                    GameManager.ValidateOption(() => Start(GameManager.savedPlayers[int.Parse(option) - 1]));
+                    Helpers.ValidateOption(() => Start(GameManager.savedPlayers[int.Parse(option) - 1]));
                     goto Start;
                 }
             }
-            else GameManager.ClearDisplayRead("No save detected !");
+            else Helpers.ClearDisplayRead("No save detected !");
         }
 
         public static void Configs()
         {
         Start:
-            switch (GameManager.ClearDisplayRead("1. Change difficulty\n\n2. Change game color\n\n3. Delete a save\n\n4. Exit\n"))
+            switch (Helpers.ClearDisplayRead("1. Change difficulty\n\n2. Change game color\n\n3. Delete a save\n\n4. Exit\n"))
             {
                 case "1":
                     GameManager.ChangeDifficulty();
@@ -75,7 +75,7 @@ namespace ConsoleRPG
                     break;
 
                 default:
-                    GameManager.DisplayRead("Invalid value !");
+                    Helpers.DisplayRead("Invalid value !");
                     goto Start;
             }
         }

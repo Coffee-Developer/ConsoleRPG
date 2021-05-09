@@ -7,7 +7,7 @@ namespace ConsoleRPG
         private static void Main()
         {
         Start:
-            switch (GameComponents.GameManager.ClearDisplayRead("===========================\nWELLCOME TO MY GAME\n==========================\n\n1. New game\n\n2. Continue\n\n3. Configs\n\n4. Exit\n"))
+            switch (Helpers.ClearDisplayRead("===========================\nWELLCOME TO MY GAME\n==========================\n\n1. New game\n\n2. Continue\n\n3. Configs\n\n4. Exit\n"))
             {
                 case "1":
                     Game.Start(null);
@@ -25,7 +25,7 @@ namespace ConsoleRPG
                     break;
 
                 default:
-                    GameComponents.GameManager.DisplayRead("Invalid value !");
+                    Helpers.DisplayRead("Invalid value !");
                     goto Start;
             }
         }

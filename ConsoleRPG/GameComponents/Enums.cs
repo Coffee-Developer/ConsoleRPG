@@ -1,4 +1,4 @@
-﻿namespace ConsoleRPG
+﻿namespace ConsoleRPG.GameComponents
 {
     internal enum Items { Xp_potion, HP_potion, Xp_flask, HP_flask, Elixir, Booster, Estus_flask, Vigorite, Lerite, Mermel, Latus_potion }
 
