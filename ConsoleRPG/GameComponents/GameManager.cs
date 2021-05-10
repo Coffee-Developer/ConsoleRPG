@@ -9,15 +9,12 @@ namespace ConsoleRPG.GameComponents
         #region Properties
 
         public static Difficulties difficulty = Difficulties.Medium;
-
         public static bool playerIsDead;
-
         public static Random rand = new();
-
         public static List<Player> savedPlayers = new();
-
-        public static int DifficultyFactor => (int)difficulty;
-
+        public static int difficultyFactor = (int)difficulty, usedItems, boughtItems, soldItems;
+        public static float damageDone, damageTaken;
+        
         #endregion Properties
 
         #region Methods
@@ -85,7 +82,7 @@ namespace ConsoleRPG.GameComponents
         {
             playerIsDead = true;
             savedPlayers.Remove(player);
-            Helpers.DisplayRead($"{player.name} was killed by {enemyName} !\n");
+            Helpers.ClearDisplayRead($"{player.name} was killed by {enemyName} !\n\nDifficulty: {(Difficulties)player.difficultyFactor}\n\nTotal damage taken: {damageTaken}\n\nTotal damage done: {damageDone}\n\nUsed items: {usedItems}\n\nBought items: {boughtItems}\n\nSold items: {soldItems}\n");
         }
 
         public static Enemy GenerateEnemy(Player player)

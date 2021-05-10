@@ -50,6 +50,7 @@ namespace ConsoleRPG.GameComponents
                             player.coins -= selectedItem.price;
                             player.inventory.Add(selectedItem);
                             itemsOnSale.Remove(selectedItem);
+                            GameManager.boughtItems++;
                         }
                     });
                     goto Start;
@@ -71,6 +72,7 @@ namespace ConsoleRPG.GameComponents
                         player.coins += selectedItem.price;
                         itemsOnSale.Add(selectedItem);
                         player.inventory.Remove(selectedItem);
+                        GameManager.soldItems++;
                     });
                     goto Start;
                 }

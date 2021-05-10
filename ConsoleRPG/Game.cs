@@ -44,7 +44,7 @@ namespace ConsoleRPG
         Start:
             if (GameManager.savedPlayers.Count != 0)
             {
-                string option = Helpers.DisplayItemsInList("Select a save to continue or type -1 to exit:\n", GameManager.savedPlayers, player => $"{player.name}");
+                string option = Helpers.DisplayItemsInList("Select a save to continue or type -1 to exit:\n", GameManager.savedPlayers, player => $"{player.name}\nDifficulty: {(Difficulties)player.difficultyFactor}\n");
                 if (!option.Equals("-1"))
                 {
                     Helpers.ValidateOption(() => Start(GameManager.savedPlayers[int.Parse(option) - 1]));

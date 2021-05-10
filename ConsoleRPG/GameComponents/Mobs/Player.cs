@@ -39,7 +39,7 @@ namespace ConsoleRPG.Mobs
         #region Methods
         public Player(Classes playerClass, LightAttacks lightAttack, HeavyAttacks heavyAttack, int level, string name, int strengthPoints, int resistencePoints, int speedPoints, int manaPoints) : base(level, name, strengthPoints, resistencePoints, speedPoints)
         {
-            difficultyFactor = GameManager.DifficultyFactor;
+            difficultyFactor = GameManager.difficultyFactor;
             mana = manaPoints * 10;
             this.manaPoints += manaPoints;
             this.playerClass = playerClass;
@@ -59,6 +59,7 @@ namespace ConsoleRPG.Mobs
                         var selectedItem = inventory[int.Parse(option) - 1];
                         selectedItem.Effect(this);
                         inventory.Remove(selectedItem);
+                        GameManager.usedItems++;
                     });
                     goto Start;
                 }
@@ -93,13 +94,13 @@ namespace ConsoleRPG.Mobs
             {
                 case AttackTypes.LightAttack:
                     Console.WriteLine($"\n{name} uses {lightAttack.ToString().Replace("_", " ")} !");
-                    Attack(enemy, AttackDamage);
+                    GameManager.damageDone += Attack(enemy, AttackDamage);
                     break;
 
                 case AttackTypes.HeavyAttack:
                     mana -= 5 * difficultyFactor;
                     Console.WriteLine($"\n{name} uses {heavyAttack.ToString().Replace("_", " ")} !");
-                    Attack(enemy, AttackDamage + 5);
+                    GameManager.damageDone += Attack(enemy, AttackDamage + 5);
                     break;
             }
             Console.ReadLine();

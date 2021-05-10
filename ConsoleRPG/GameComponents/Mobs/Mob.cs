@@ -27,6 +27,6 @@
             life = NewLife;
         }
 
-        protected virtual void Attack(Mob deffenser, int AttackDamage) => deffenser.life -= GameComponents.GameManager.rand.Next(AttackDamage, AttackDamage + 5) - deffenser.Resistence;
+        protected virtual float Attack(Mob deffenser, int AttackDamage) => deffenser.life -= GameComponents.GameManager.rand.Next(AttackDamage, AttackDamage + 5) - deffenser.Resistence;
     }
 }
