@@ -6,7 +6,6 @@ namespace ConsoleRPG.GameComponents
     internal static class Market
     {
         private static List<Item> itemsOnSale = new();
-
         private static readonly string[] firstNames = { "Gregory's", "Borvis", "Renan's", "Poloris", "Krager's", "Viuma's" }, secondNames = { " Gregocery", " Store", " Storage", " Bar" };
 
         public static void Menu(Player player)

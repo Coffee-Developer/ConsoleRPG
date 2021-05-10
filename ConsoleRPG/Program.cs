@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ConsoleRPG
+﻿namespace ConsoleRPG
 {
     internal class Program
     {

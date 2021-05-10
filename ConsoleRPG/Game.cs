@@ -57,7 +57,7 @@ namespace ConsoleRPG
         public static void Configs()
         {
         Start:
-            switch (Helpers.ClearDisplayRead("1. Change difficulty\n\n2. Change game color\n\n3. Delete a save\n\n4. Exit\n"))
+            switch (Helpers.ClearDisplayRead("1. Change difficulty\n\n2. Change game color\n\n3. Delete a save\n\n-1. Exit\n"))
             {
                 case "1":
                     GameManager.ChangeDifficulty();
@@ -71,7 +71,7 @@ namespace ConsoleRPG
                     GameManager.DeleteSave();
                     goto Start;
 
-                case "4":
+                case "-1":
                     break;
 
                 default:

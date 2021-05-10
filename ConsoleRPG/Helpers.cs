@@ -7,10 +7,18 @@ namespace ConsoleRPG
     {
         public delegate string ForEachItemList<T>(T item);
 
-        public static void ValidateOption(Action action) 
+        public static bool ValidateOption(Action action) 
         {
-            try { action(); } 
-            catch (Exception) { DisplayRead("Invalid value !"); }
+            try 
+            { 
+                action();
+                return true;
+            } 
+            catch (Exception) 
+            { 
+                DisplayRead("Invalid value !"); 
+                return false;
+            }
         }
 
         public static string ClearDisplayRead(string textToDisplay) 

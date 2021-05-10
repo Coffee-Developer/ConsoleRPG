@@ -1,5 +1,4 @@
 ﻿using ConsoleRPG.GameComponents;
-using System;
 using System.Collections.Generic;
 
 namespace ConsoleRPG.Mobs
@@ -23,7 +22,7 @@ namespace ConsoleRPG.Mobs
                 xp = value;
                 if (xp >= XpNextLevel)
                 {
-                    xp = Math.Abs(xp - XpNextLevel);
+                    xp = System.Math.Abs(xp - XpNextLevel);
                     levelUp = true;
                     level++;
                     skillPoints++;
@@ -93,17 +92,17 @@ namespace ConsoleRPG.Mobs
             switch (attack)
             {
                 case AttackTypes.LightAttack:
-                    Console.WriteLine($"\n{name} uses {lightAttack.ToString().Replace("_", " ")} !");
+                    System.Console.WriteLine($"\n{name} uses {lightAttack.ToString().Replace("_", " ")} !");
                     GameManager.damageDone += Attack(enemy, AttackDamage);
                     break;
 
                 case AttackTypes.HeavyAttack:
                     mana -= 5 * difficultyFactor;
-                    Console.WriteLine($"\n{name} uses {heavyAttack.ToString().Replace("_", " ")} !");
+                    System.Console.WriteLine($"\n{name} uses {heavyAttack.ToString().Replace("_", " ")} !");
                     GameManager.damageDone += Attack(enemy, AttackDamage + 5);
                     break;
             }
-            Console.ReadLine();
+            System.Console.ReadLine();
         }
 
         public bool TryRunAway(int EnemySpeed) => EnemySpeed < Speed;

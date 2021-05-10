@@ -1,5 +1,4 @@
 ﻿using ConsoleRPG.Mobs;
-using System;
 
 namespace ConsoleRPG.GameComponents
 {
@@ -64,7 +63,7 @@ namespace ConsoleRPG.GameComponents
                     goto Start;
             }
 
-            Console.Clear();
+            System.Console.Clear();
             if (enemy.life <= 0) GameManager.EnemyKilled(player, enemy);
             else
             {

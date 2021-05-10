@@ -36,15 +36,8 @@ namespace ConsoleRPG.GameComponents
         public static void ChangeDifficulty()
         {
         Start:
-            Console.Clear();
-            Console.WriteLine($"Current difficulty: {difficulty}\n\nSelect a new difficulty:\n\n1. Easy\n\n2. Medium\n\n3. Hard\n");
-            try { difficulty = (Difficulties)int.Parse(Console.ReadLine().Trim()); }
-            catch (Exception)
-            {
-                Console.WriteLine("Invalid value !");
-                Console.ReadLine();
+            if (!Helpers.ValidateOption(() => difficulty = (Difficulties)int.Parse(Helpers.ClearDisplayRead($"Current difficulty: {difficulty}\n\nSelect a new difficulty:\n\n1. Easy\n\n2. Medium\n\n3. Hard\n").Trim())))
                 goto Start;
-            }
         }
 
         public static Player CreatePlayer()
@@ -245,15 +238,10 @@ namespace ConsoleRPG.GameComponents
         private static Classes GetClass(string playerName)
         {
         Class:
-            Console.Clear();
-            Console.WriteLine($"Select a class for {playerName}:\n\n1. Warrior\nBonus: +1 Strength, +1 Resistence\n\n2. Wizzard\nBonus: +1 Mana, +1 Resistence\n\n3. Archer\nBonus: +1 Speed, +1 Mana\n");
-            try { return (Classes)int.Parse(Console.ReadLine()); }
-            catch (Exception)
-            {
-                Console.WriteLine("Invalid value !");
-                Console.ReadLine();
-                goto Class;
-            }
+            Classes classes = default;
+            if (Helpers.ValidateOption(() => classes = (Classes)int.Parse(Helpers.ClearDisplayRead($"Select a class for {playerName}:\n\n1. Warrior\nBonus: +1 Strength, +1 Resistence\n\n2. Wizzard\nBonus: +1 Mana, +1 Resistence\n\n3. Archer\nBonus: +1 Speed, +1 Mana\n").Trim())))
+                return classes;
+            else goto Class;
         }
 
         private static string GetName() => Helpers.ClearDisplayRead("Type your character name: ").Trim();
