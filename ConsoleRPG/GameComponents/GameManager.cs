@@ -4,17 +4,17 @@ using System.Collections.Generic;
 
 namespace ConsoleRPG.GameComponents
 {
-    internal static class GameManager
+    internal struct GameManager
     {
         #region Properties
 
+        public static readonly Random rand = new();
+        public static readonly List<Player> savedPlayers = new();
         public static Difficulties difficulty = Difficulties.Medium;
         public static bool playerIsDead;
-        public static Random rand = new();
-        public static List<Player> savedPlayers = new();
         public static int difficultyFactor = (int)difficulty, usedItems, boughtItems, soldItems;
-        public static float damageDone, damageTaken;
-        
+        public static float damageDone = 0, damageTaken = 0;
+
         #endregion Properties
 
         #region Methods
@@ -26,7 +26,7 @@ namespace ConsoleRPG.GameComponents
             Console.WriteLine($"Current color: {Console.BackgroundColor}\n\nSelect a new color:\n");
             for (int i = 0; i < 12; i++) Console.WriteLine($"{i + 1}. {(ConsoleColor)i}\n");
             string option = Console.ReadLine().Trim();
-            if (option != "-1") 
+            if (option != "-1")
             {
                 Helpers.ValidateOption(() => Console.BackgroundColor = (ConsoleColor)int.Parse(option) - 1);
                 goto Start;
@@ -81,7 +81,7 @@ namespace ConsoleRPG.GameComponents
         public static Enemy GenerateEnemy(Player player)
         {
             Enemys enemy = (Enemys)rand.Next(6);
-            int strengthPoints = 1, resistencePoints = 1, speedPoints = 1, coins = 0, xp = 0;
+            int strengthPoints = 1 + player.level, resistencePoints = 1 + player.level, speedPoints = 1 + player.level, coins = 0, xp = 0;
 
             switch (enemy)
             {
@@ -205,28 +205,28 @@ namespace ConsoleRPG.GameComponents
                 case Items.Vigorite:
                     effectStrength++;
                     description = $"A bottle with 50mg of vigoritin and Elixir mixed\nAdds {effectStrength} strength points";
-                    price = 35;                   
+                    price = 35;
                     break;
 
                 case Items.Lerite:
                     effectLife += 10;
                     effectResistence++;
                     description = $"A small recipient filled with dragon blood and human blood\nAdds {effectLife} health and {effectResistence} resistence points";
-                    price = 40;                    
+                    price = 40;
                     break;
 
                 case Items.Mermel:
                     effectSpeed++;
                     effectStrength++;
                     description = $"A bottle with Elixir, Vigorite and.... melon !?\nAdds {effectSpeed} speed points and {effectStrength} strenght points";
-                    price = 40;                   
+                    price = 40;
                     break;
 
                 case Items.Latus_potion:
                     effectMana++;
                     effectXp += 10;
                     description = $"A simple flask that contains a rare fluid called latus\nAdds {effectMana} mana points and {effectXp} Xp";
-                    price = 40;                    
+                    price = 40;
                     break;
             }
 

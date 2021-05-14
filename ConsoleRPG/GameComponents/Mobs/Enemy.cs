@@ -10,11 +10,13 @@
 
         public override float Xp { get => xp; set => xp = value; }
 
-        // I know this isn't an AI.
-        public void AI(Player player)
+        public void EnemyAttack(Player player)
         {
-            GameComponents.GameManager.damageTaken += Attack(player, GameComponents.GameManager.rand.Next(AttackDamage, AttackDamage + 10));
-            Helpers.DisplayRead($"{name} attacks {player.name}");
+            if (Attack(player, GameComponents.GameManager.rand.Next(AttackDamage, AttackDamage + 10), out float damageTaken))
+                Helpers.DisplayRead($"{name} attacks {player.name}");
+            else
+                Helpers.DisplayRead($"{player.name} has repelled the attack !");
+            GameComponents.GameManager.damageTaken += damageTaken;
         }
     }
 }

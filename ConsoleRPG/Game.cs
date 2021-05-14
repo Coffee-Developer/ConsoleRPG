@@ -18,8 +18,8 @@ namespace ConsoleRPG
 
                 case "1":
                     Event.RandomEvent(player);
-                    if (GameManager.playerIsDead) break;
-                    else goto Start;
+                    if (!GameManager.playerIsDead) goto Start;
+                    else break;
 
                 case "2":
                     Market.Menu(player);

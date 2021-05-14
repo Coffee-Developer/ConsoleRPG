@@ -9,14 +9,14 @@
         public string name;
         protected float NewLife => level * 30 + Resistence;
         public int AttackDamage => Strength + 10 * level;
-        public int Resistence => resistencePoints * 5;
+        public int Resistence => resistencePoints * 2;
         public int Speed => speedPoints * 10;
         public int Strength => strengthPoints * 10;
         protected float xp;
         public abstract float Xp { get; set; }
 
         #endregion
-        
+
         public Mob(int level, string name, int strengthPoints, int resistencePoints, int speedPoints)
         {
             this.strengthPoints += strengthPoints;
@@ -27,6 +27,20 @@
             life = NewLife;
         }
 
-        protected float Attack(Mob deffenser, int AttackDamage) => deffenser.life -= GameComponents.GameManager.rand.Next(AttackDamage, AttackDamage + 5) - deffenser.Resistence;
+        protected bool Attack(Mob deffenser, int AttackDamage, out float damage)
+        {
+            if (deffenser.Resistence - AttackDamage < 0)
+            {
+                damage = deffenser.Resistence - AttackDamage;
+                deffenser.life += deffenser.Resistence - AttackDamage;
+                return true;
+            }
+            else
+            {
+                damage = AttackDamage / (1 * difficultyFactor);
+                deffenser.life -= AttackDamage / (1 * difficultyFactor);
+                return false;
+            }
+        }
     }
 }

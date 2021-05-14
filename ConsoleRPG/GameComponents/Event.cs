@@ -13,11 +13,11 @@ namespace ConsoleRPG.GameComponents
                     break;
 
                 case Events.Nothing:
-                    Items(player);
+                    Nothing(player.name);
                     break;
 
                 case Events.Items:
-                    Nothing(player.name);
+                    Items(player);
                     break;
             }
         }
@@ -26,7 +26,7 @@ namespace ConsoleRPG.GameComponents
         {
             var enemy = GameManager.GenerateEnemy(player);
             Helpers.DisplayRead($"{player.name} found an enemy, {enemy.name} !");
-            
+
         Start:
             switch (Helpers.ClearDisplayRead($"{enemy.name}:\nLife: {enemy.life}\nLevel: {enemy.level}\nAttack damage: {enemy.AttackDamage}\nStrength: {enemy.Strength}\nResistence: {enemy.Resistence}\nSpeed: {enemy.Speed}\n\n" +
                 $"{player.name}:\nLife: {player.life}\nLevel: {player.level}\nAttack damage: {player.AttackDamage}\nStrength: {player.Strength}\nResistence: {player.Resistence}\nSpeed: {player.Speed}\nMana: {player.mana}\n\n" +
@@ -67,7 +67,7 @@ namespace ConsoleRPG.GameComponents
             if (enemy.life <= 0) GameManager.EnemyKilled(player, enemy);
             else
             {
-                enemy.AI(player);
+                enemy.EnemyAttack(player);
                 if (player.life <= 0) GameManager.GameOver(player, enemy.name);
                 else goto Start;
             }

@@ -41,7 +41,8 @@ namespace ConsoleRPG.GameComponents
                 string option = Helpers.DisplayItemsInList($"{player.name} coins: {player.coins}\n", itemsOnSale, item => $"{item.name}\nPrice: {item.price}\nDescription: {item.description}\n");
                 if (option != "-1")
                 {
-                    Helpers.ValidateOption(() => {
+                    Helpers.ValidateOption(() =>
+                    {
                         var selectedItem = itemsOnSale[int.Parse(option) - 1];
                         if (player.coins - selectedItem.price < 0) Helpers.DisplayRead("You have no money, come back here when you have more");
                         else
@@ -66,7 +67,8 @@ namespace ConsoleRPG.GameComponents
                 string option = Helpers.DisplayItemsInList($"{player.name} coins: {player.coins}\n", player.inventory, item => $"{item.name}\nPrice: {item.price}\nDescription: {item.description}\n");
                 if (option != "-1")
                 {
-                    Helpers.ValidateOption(() => {
+                    Helpers.ValidateOption(() =>
+                    {
                         var selectedItem = player.inventory[int.Parse(option) - 1];
                         player.coins += selectedItem.price;
                         itemsOnSale.Add(selectedItem);

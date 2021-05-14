@@ -3,37 +3,35 @@ using System.Collections.Generic;
 
 namespace ConsoleRPG
 {
-    public static class Helpers 
+    public static class Helpers
     {
-        public delegate string ForEachItemList<T>(T item);
-
-        public static bool ValidateOption(Action action) 
+        public static bool ValidateOption(Action action)
         {
-            try 
-            { 
+            try
+            {
                 action();
                 return true;
-            } 
-            catch (Exception) 
-            { 
-                DisplayRead("Invalid value !"); 
+            }
+            catch (Exception)
+            {
+                DisplayRead("Invalid value !");
                 return false;
             }
         }
 
-        public static string ClearDisplayRead(string textToDisplay) 
+        public static string ClearDisplayRead(string textToDisplay)
         {
             Console.Clear();
             return DisplayRead(textToDisplay);
         }
 
-        public static string DisplayRead(string textToDisplay) 
+        public static string DisplayRead(string textToDisplay)
         {
             Console.WriteLine(textToDisplay);
             return Console.ReadLine();
         }
-        
-        public static string DisplayItemsInList<T>(string text, List<T> items, ForEachItemList<T> textForEachItem)
+
+        public static string DisplayItemsInList<T>(string text, List<T> items, Func<T, string> textForEachItem)
         {
             Console.Clear();
             Console.WriteLine(text);

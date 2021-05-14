@@ -36,6 +36,7 @@ namespace ConsoleRPG.Mobs
         #endregion Properties field
 
         #region Methods
+
         public Player(Classes playerClass, LightAttacks lightAttack, HeavyAttacks heavyAttack, int level, string name, int strengthPoints, int resistencePoints, int speedPoints, int manaPoints) : base(level, name, strengthPoints, resistencePoints, speedPoints)
         {
             difficultyFactor = GameManager.difficultyFactor;
@@ -54,7 +55,8 @@ namespace ConsoleRPG.Mobs
                 string option = Helpers.DisplayItemsInList("Select a item to use:\n", inventory, item => $"{item.name}\nDescription: {item.description}\n");
                 if (option != "-1")
                 {
-                    Helpers.ValidateOption(() => {
+                    Helpers.ValidateOption(() =>
+                    {
                         var selectedItem = inventory[int.Parse(option) - 1];
                         selectedItem.Effect(this);
                         inventory.Remove(selectedItem);
@@ -89,19 +91,21 @@ namespace ConsoleRPG.Mobs
 
         public void Attack(AttackTypes attack, Enemy enemy)
         {
+            float damageDone = 0;
             switch (attack)
             {
                 case AttackTypes.LightAttack:
-                    System.Console.WriteLine($"\n{name} uses {lightAttack.ToString().Replace("_", " ")} !");
-                    GameManager.damageDone += Attack(enemy, AttackDamage);
+                    System.Console.WriteLine($"\n{name} uses {lightAttack.ToString().Replace("_", " ")} !\n");
+                    if (!Attack(enemy, AttackDamage, out damageDone)) Helpers.DisplayRead($"The {enemy.name} repelled the attack !");
                     break;
 
                 case AttackTypes.HeavyAttack:
                     mana -= 5 * difficultyFactor;
-                    System.Console.WriteLine($"\n{name} uses {heavyAttack.ToString().Replace("_", " ")} !");
-                    GameManager.damageDone += Attack(enemy, AttackDamage + 5);
+                    System.Console.WriteLine($"\n{name} uses {heavyAttack.ToString().Replace("_", " ")} !\n");
+                    if (!Attack(enemy, AttackDamage + 5, out damageDone)) Helpers.DisplayRead($"The {enemy.name} repelled the attack !");
                     break;
             }
+            GameManager.damageDone += damageDone;
             System.Console.ReadLine();
         }
 
@@ -138,7 +142,7 @@ namespace ConsoleRPG.Mobs
             }
             mana = manaPoints * 10;
         }
-    
+
         #endregion
     }
 }
