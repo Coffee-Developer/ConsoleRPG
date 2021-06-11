@@ -1,10 +1,10 @@
-﻿using ConsoleRPG.Mobs;
+using ConsoleRPG.Mobs;
 using System;
 using System.Collections.Generic;
 
 namespace ConsoleRPG.GameComponents
 {
-    internal struct GameManager
+    internal static class GameManager
     {
         #region Properties
 
@@ -12,7 +12,7 @@ namespace ConsoleRPG.GameComponents
         public static readonly List<Player> savedPlayers = new();
         public static Difficulties difficulty = Difficulties.Medium;
         public static bool playerIsDead;
-        public static int difficultyFactor = (int)difficulty, usedItems, boughtItems, soldItems;
+        public static int usedItems = 0, boughtItems = 0, soldItems = 0;
         public static float damageDone = 0, damageTaken = 0;
 
         #endregion Properties
@@ -240,7 +240,10 @@ namespace ConsoleRPG.GameComponents
         Class:
             Classes classes = default;
             if (Helpers.ValidateOption(() => classes = (Classes)int.Parse(Helpers.ClearDisplayRead($"Select a class for {playerName}:\n\n1. Warrior\nBonus: +1 Strength, +1 Resistence\n\n2. Wizzard\nBonus: +1 Mana, +1 Resistence\n\n3. Archer\nBonus: +1 Speed, +1 Mana\n").Trim())))
+            {
+                if (classes != Classes.Warrior && classes != Classes.Wizzard && classes != Classes.Archer) classes = (Classes)rand.Next(4);
                 return classes;
+            }
             else goto Class;
         }
 
