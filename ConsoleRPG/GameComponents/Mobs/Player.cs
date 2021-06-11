@@ -1,4 +1,4 @@
-﻿using ConsoleRPG.GameComponents;
+using ConsoleRPG.GameComponents;
 using System.Collections.Generic;
 
 namespace ConsoleRPG.Mobs
@@ -39,7 +39,7 @@ namespace ConsoleRPG.Mobs
 
         public Player(Classes playerClass, LightAttacks lightAttack, HeavyAttacks heavyAttack, int level, string name, int strengthPoints, int resistencePoints, int speedPoints, int manaPoints) : base(level, name, strengthPoints, resistencePoints, speedPoints)
         {
-            difficultyFactor = GameManager.difficultyFactor;
+            difficultyFactor = (int)GameManager.difficulty;
             mana = manaPoints * 10;
             this.manaPoints += manaPoints;
             this.playerClass = playerClass;
